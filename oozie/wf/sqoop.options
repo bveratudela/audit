@@ -1,0 +1,9 @@
+--username
+reader
+--password-alias
+mysql.password
+--delete-target-dir
+--fields-terminated-by
+'|'
+-m
+1

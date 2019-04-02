@@ -1,0 +1,22 @@
+<coordinator-app name="Audit Workflow Coordinator" frequency="${coord:days(1)}"
+  start="2019-01-10T18:00Z" end="2119-01-09T10:00Z" timezone="America/New_York"
+  xmlns="uri:oozie:coordinator:0.2">
+
+  <controls>
+    <concurrency>1</concurrency>
+    <execution>FIFO</execution>
+    <throttle>5</throttle>
+  </controls>
+
+  <action>
+    <workflow>
+      <app-path>${workflowPath}/workflow.xml</app-path>
+      <configuration>
+        <property>
+          <name>oozie.use.system.libpath</name>
+          <value>true</value>
+        </property>
+      </configuration>
+   </workflow>
+  </action>
+</coordinator-app>

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workflow-app xmlns="uri:oozie:workflow:0.5" name="auditWorkflow">
+    <credentials>
+        <credential name='hive_credentials' type='hcat'>
+            <property>
+                <name>hcat.metastore.uri</name>
+                <value>${thrift}</value>
+            </property>
+            <property>
+                <name>hcat.metastore.principal</name>
+                <value>hive/_HOST@KRIQT.COM</value>
+            </property>
+        </credential>
+    </credentials>
+
+    <start to="getContext"/>
+
+    <action name="getContext">
+        <shell xmlns="uri:oozie:shell-action:0.1">
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <exec>getContext.sh</exec>
+            <file>bin/getContext.sh#getContext.sh</file>
+            <capture-output/>
+        </shell>
+        <ok to="prepareHiveTables"/>
+        <error to="kill"/>
+    </action>
+
+    <action name="prepareHiveTables" cred="hive_credentials">
+        <hive xmlns="uri:oozie:hive-action:0.2">
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <job-xml>conf/hive-site.xml</job-xml>
+            <script>ql/prepare.ql</script>
+            <file>ql/prepare.ql#prepare.ql</file>
+        </hive>
+        <ok to="sqoopHue"/>
+        <error to="kill"/>
+    </action>
+
+    <action name="sqoopHue" cred="hive_credentials">
+        <sqoop xmlns="uri:oozie:sqoop-action:0.2">
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <arg>import</arg>
+            <arg>-Dhadoop.security.credential.provider.path=jceks://hdfs/auth/oozie/wf/password.jceks</arg>
+            <arg>--verbose</arg>
+            <arg>--connect</arg>
+            <arg>jdbc:mysql://vbox.kriqt.com:3306/hue</arg>
+            <arg>--options-file</arg>
+            <arg>sqoop.options</arg>
+            <arg>--query</arg>
+            <arg>"SELECT '0.0.0.0' AS IP_ADDR, a.username AS USERNAME, 'hue' as SOURCE, a.last_login AS EVENT_TIME FROM hue.auth_user a, hue.auth_user_groups b, hue.auth_group c WHERE a.id = b.user_id and b.group_id = c.id AND $CONDITIONS order by a.id"</arg>
+            <arg>--target-dir</arg>
+            <arg>${wf:actionData('getContext')['hueTargetDir']}</arg>
+            <file>sqoop.options</file>
+            <file>conf/hive-site.xml#hive-site.xml</file>
+        </sqoop>
+        <ok to="sqoopNavHdfs"/>
+        <error to="kill"/>
+    </action>
+
+    <!-- fork name="sqoopNavFork">
+        <path start="sqoopNavHdfs"/>
+        <path start="sqoopNavHive"/>
+        <path start="sqoopNavHue"/>
+        <path start="sqoopNavImpala"/>
+        <path start="sqoopNavSentry"/>
+        <path start="sqoopNavMs"/>
+    </fork -->
+
+    <action name="sqoopNavHdfs" cred="hive_credentials">
+        <sqoop xmlns="uri:oozie:sqoop-action:0.2">
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <arg>import</arg>
+            <arg>-Dhadoop.security.credential.provider.path=jceks://hdfs/auth/oozie/wf/password.jceks</arg>
+            <arg>--verbose</arg>
+            <arg>--connect</arg>
+            <arg>jdbc:mysql://vbox.kriqt.com:3306/nav</arg>
+            <arg>--options-file</arg>
+            <arg>sqoop.options</arg>
+            <arg>--query</arg>
+            <arg>"SELECT IP_ADDR, USERNAME, 'nav-hdfs' AS SOURCE, EVENT_TIME FROM nav.HDFS_${wf:actionData('getContext')['navTableSuffix']} WHERE $CONDITIONS"</arg>
+            <arg>--target-dir</arg>
+            <arg>${wf:actionData('getContext')['navHdfsTargetDir']}</arg>
+            <file>sqoop.options</file>
+            <file>conf/hive-site.xml#hive-site.xml</file>
+        </sqoop>
+        <ok to="sqoopNavHive"/>
+        <error to="kill"/>
+    </action>
+
+    <action name="sqoopNavHive" cred="hive_credentials">
+        <sqoop xmlns="uri:oozie:sqoop-action:0.2">
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <arg>import</arg>
+            <arg>-Dhadoop.security.credential.provider.path=jceks://hdfs/auth/oozie/wf/password.jceks</arg>
+            <arg>--verbose</arg>
+            <arg>--connect</arg>
+            <arg>jdbc:mysql://vbox.kriqt.com:3306/nav</arg>
+            <arg>--options-file</arg>
+            <arg>sqoop.options</arg>
+            <arg>--query</arg>
+            <arg>"SELECT IP_ADDR, USERNAME, 'nav-hive' AS SOURCE, EVENT_TIME FROM nav.HIVE_${wf:actionData('getContext')['navTableSuffix']} WHERE $CONDITIONS"</arg>
+            <arg>--target-dir</arg>
+            <arg>${wf:actionData('getContext')['navHiveTargetDir']}</arg>
+            <file>sqoop.options</file>
+            <file>conf/hive-site.xml#hive-site.xml</file>
+        </sqoop>
+        <ok to="sqoopNavHue"/>
+        <error to="kill"/>
+    </action>
+
+    <action name="sqoopNavHue" cred="hive_credentials">
+        <sqoop xmlns="uri:oozie:sqoop-action:0.2">
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <arg>import</arg>
+            <arg>-Dhadoop.security.credential.provider.path=jceks://hdfs/auth/oozie/wf/password.jceks</arg>
+            <arg>--verbose</arg>
+            <arg>--connect</arg>
+            <arg>jdbc:mysql://vbox.kriqt.com:3306/nav</arg>
+            <arg>--options-file</arg>
+            <arg>sqoop.options</arg>
+            <arg>--query</arg>
+            <arg>"SELECT IP_ADDR, USERNAME, 'nav-hue' AS SOURCE, EVENT_TIME FROM nav.HUE_${wf:actionData('getContext')['navTableSuffix']} WHERE $CONDITIONS"</arg>
+            <arg>--target-dir</arg>
+            <arg>${wf:actionData('getContext')['navHueTargetDir']}</arg>
+            <file>sqoop.options</file>
+            <file>conf/hive-site.xml#hive-site.xml</file>
+        </sqoop>
+        <ok to="sqoopNavImpala"/>
+        <error to="kill"/>
+    </action>
+
+    <action name="sqoopNavImpala" cred="hive_credentials">
+        <sqoop xmlns="uri:oozie:sqoop-action:0.2">
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <arg>import</arg>
+            <arg>-Dhadoop.security.credential.provider.path=jceks://hdfs/auth/oozie/wf/password.jceks</arg>
+            <arg>--verbose</arg>
+            <arg>--connect</arg>
+            <arg>jdbc:mysql://vbox.kriqt.com:3306/nav</arg>
+            <arg>--options-file</arg>
+            <arg>sqoop.options</arg>
+            <arg>--query</arg>
+            <arg>"SELECT IP_ADDR, USERNAME, 'nav-impala' AS SOURCE, EVENT_TIME FROM nav.IMPALA_${wf:actionData('getContext')['navTableSuffix']} WHERE $CONDITIONS"</arg>
+            <arg>--target-dir</arg>
+            <arg>${wf:actionData('getContext')['navImpalaTargetDir']}</arg>
+            <file>sqoop.options</file>
+            <file>conf/hive-site.xml#hive-site.xml</file>
+        </sqoop>
+        <ok to="sqoopNavSentry"/>
+        <error to="kill"/>
+    </action>
+
+    <action name="sqoopNavSentry" cred="hive_credentials">
+        <sqoop xmlns="uri:oozie:sqoop-action:0.2">
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <arg>import</arg>
+            <arg>-Dhadoop.security.credential.provider.path=jceks://hdfs/auth/oozie/wf/password.jceks</arg>
+            <arg>--verbose</arg>
+            <arg>--connect</arg>
+            <arg>jdbc:mysql://vbox.kriqt.com:3306/nav</arg>
+            <arg>--options-file</arg>
+            <arg>sqoop.options</arg>
+            <arg>--query</arg>
+            <arg>"SELECT IP_ADDR, USERNAME, 'nav-sentry' AS SOURCE, EVENT_TIME FROM nav.SENTRY_${wf:actionData('getContext')['navTableSuffix']} WHERE $CONDITIONS"</arg>
+            <arg>--target-dir</arg>
+            <arg>${wf:actionData('getContext')['navSentryTargetDir']}</arg>
+            <file>sqoop.options</file>
+            <file>conf/hive-site.xml#hive-site.xml</file>
+        </sqoop>
+        <ok to="sqoopNavMs"/>
+        <error to="kill"/>
+    </action>
+
+    <action name="sqoopNavMs" cred="hive_credentials">
+        <sqoop xmlns="uri:oozie:sqoop-action:0.2">
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <arg>import</arg>
+            <arg>-Dhadoop.security.credential.provider.path=jceks://hdfs/auth/oozie/wf/password.jceks</arg>
+            <arg>--verbose</arg>
+            <arg>--connect</arg>
+            <arg>jdbc:mysql://vbox.kriqt.com:3306/nav</arg>
+            <arg>--options-file</arg>
+            <arg>sqoop.options</arg>
+            <arg>--query</arg>
+            <arg>"SELECT IP_ADDR, USERNAME, 'nav-ms' AS SOURCE, EVENT_TIME FROM nav.NAVMS_${wf:actionData('getContext')['navTableSuffix']} WHERE $CONDITIONS"</arg>
+            <arg>--target-dir</arg>
+            <arg>${wf:actionData('getContext')['navMsTargetDir']}</arg>
+            <file>sqoop.options</file>
+            <file>conf/hive-site.xml#hive-site.xml</file>
+        </sqoop>
+        <ok to="moveHdfsFiles"/>
+        <error to="kill"/>
+    </action>
+
+    <!-- join name="sqoopJoin" to="moveHdfsFiles"/ -->
+
+    <action name="moveHdfsFiles">
+        <spark xmlns="uri:oozie:spark-action:0.1">
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <master>yarn</master>
+            <mode>cluster</mode>
+            <name>Audit Move Files</name>
+            <class>com.cloudera.spark.MoveFiles</class>
+            <jar>lib/movefiles_2.10-1.0.jar</jar>
+            <spark-opts>--executor-memory 1G --num-executors 2</spark-opts>
+            <arg>${wf:actionData('getContext')['inputDir']}</arg>
+            <arg>${wf:actionData('getContext')['outputDir']}</arg>
+        </spark>
+        <ok to="end"/>
+        <error to="kill"/>
+    </action>
+
+    <!-- action name="reportFailure">
+        <email xmlns="uri:oozie:email-action:0.1">
+            <to>${email}</to>
+            <subject>LZ: Workflow auditWorkflow failed</subject>
+            <body>Hi, workflow auditWorkflow failed during execution. Please visit Hue to diagnose and restart the workflow.</body>
+        </email>
+        <ok to="kill"/>
+        <error to="kill"/>
+    </action -->
+
+    <kill name="kill">
+        <message>Action failed, error message[${wf:errorMessage(wf:lastErrorNode())}]</message>
+    </kill>
+    <end name="end"/>
+</workflow-app>

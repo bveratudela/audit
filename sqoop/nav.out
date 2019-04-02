@@ -1,0 +1,456 @@
+SELECT IP_ADDR, USERNAME, 'hbase', EVENT_TIME FROM nav.HBASE_AUDIT_EVENTS_2019_02_05 WHERE $CONDITIONS;
+Importing navhbase  ...
+Warning: /opt/cloudera/parcels/CDH-5.13.3-1.cdh5.13.3.p0.2/bin/../lib/sqoop/../accumulo does not exist! Accumulo imports will fail.
+Please set $ACCUMULO_HOME to the root of your Accumulo installation.
+19/02/05 10:04:21 INFO sqoop.Sqoop: Running Sqoop version: 1.4.6-cdh5.13.3
+19/02/05 10:04:21 WARN tool.BaseSqoopTool: Setting your password on the command-line is insecure. Consider using -P instead.
+19/02/05 10:04:21 INFO oracle.OraOopManagerFactory: Data Connector for Oracle and Hadoop is disabled.
+19/02/05 10:04:21 INFO manager.SqlManager: Using default fetchSize of 1000
+19/02/05 10:04:21 INFO tool.CodeGenTool: Beginning code generation
+19/02/05 10:04:21 INFO manager.OracleManager: Time zone has been set to GMT
+19/02/05 10:04:21 INFO manager.SqlManager: Executing SQL statement: SELECT IP_ADDR, USERNAME, 'hbase', EVENT_TIME FROM nav.HBASE_AUDIT_EVENTS_2019_02_05 WHERE  (1 = 0) ;
+19/02/05 10:04:21 ERROR manager.SqlManager: Error executing statement: java.sql.SQLSyntaxErrorException: ORA-00933: SQL command not properly ended
+
+java.sql.SQLSyntaxErrorException: ORA-00933: SQL command not properly ended
+
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:447)
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:396)
+	at oracle.jdbc.driver.T4C8Oall.processError(T4C8Oall.java:951)
+	at oracle.jdbc.driver.T4CTTIfun.receive(T4CTTIfun.java:513)
+	at oracle.jdbc.driver.T4CTTIfun.doRPC(T4CTTIfun.java:227)
+	at oracle.jdbc.driver.T4C8Oall.doOALL(T4C8Oall.java:531)
+	at oracle.jdbc.driver.T4CPreparedStatement.doOall8(T4CPreparedStatement.java:208)
+	at oracle.jdbc.driver.T4CPreparedStatement.executeForDescribe(T4CPreparedStatement.java:886)
+	at oracle.jdbc.driver.OracleStatement.executeMaybeDescribe(OracleStatement.java:1175)
+	at oracle.jdbc.driver.OracleStatement.doExecuteWithTimeout(OracleStatement.java:1296)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeInternal(OraclePreparedStatement.java:3613)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeQuery(OraclePreparedStatement.java:3657)
+	at oracle.jdbc.driver.OraclePreparedStatementWrapper.executeQuery(OraclePreparedStatementWrapper.java:1495)
+	at org.apache.sqoop.manager.SqlManager.execute(SqlManager.java:777)
+	at org.apache.sqoop.manager.SqlManager.execute(SqlManager.java:786)
+	at org.apache.sqoop.manager.SqlManager.getColumnInfoForRawQuery(SqlManager.java:289)
+	at org.apache.sqoop.manager.SqlManager.getColumnTypesForRawQuery(SqlManager.java:260)
+	at org.apache.sqoop.manager.SqlManager.getColumnTypesForQuery(SqlManager.java:253)
+	at org.apache.sqoop.manager.ConnManager.getColumnTypes(ConnManager.java:336)
+	at org.apache.sqoop.orm.ClassWriter.getColumnTypes(ClassWriter.java:1858)
+	at org.apache.sqoop.orm.ClassWriter.generate(ClassWriter.java:1657)
+	at org.apache.sqoop.tool.CodeGenTool.generateORM(CodeGenTool.java:106)
+	at org.apache.sqoop.tool.ImportTool.importTable(ImportTool.java:494)
+	at org.apache.sqoop.tool.ImportTool.run(ImportTool.java:621)
+	at org.apache.sqoop.Sqoop.run(Sqoop.java:147)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:70)
+	at org.apache.sqoop.Sqoop.runSqoop(Sqoop.java:183)
+	at org.apache.sqoop.Sqoop.runTool(Sqoop.java:234)
+	at org.apache.sqoop.Sqoop.runTool(Sqoop.java:243)
+	at org.apache.sqoop.Sqoop.main(Sqoop.java:252)
+19/02/05 10:04:21 ERROR tool.ImportTool: Import failed: java.io.IOException: No columns to generate for ClassWriter
+	at org.apache.sqoop.orm.ClassWriter.generate(ClassWriter.java:1663)
+	at org.apache.sqoop.tool.CodeGenTool.generateORM(CodeGenTool.java:106)
+	at org.apache.sqoop.tool.ImportTool.importTable(ImportTool.java:494)
+	at org.apache.sqoop.tool.ImportTool.run(ImportTool.java:621)
+	at org.apache.sqoop.Sqoop.run(Sqoop.java:147)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:70)
+	at org.apache.sqoop.Sqoop.runSqoop(Sqoop.java:183)
+	at org.apache.sqoop.Sqoop.runTool(Sqoop.java:234)
+	at org.apache.sqoop.Sqoop.runTool(Sqoop.java:243)
+	at org.apache.sqoop.Sqoop.main(Sqoop.java:252)
+
+SELECT IP_ADDR, USERNAME, 'hdfs', EVENT_TIME FROM nav.HDFS_AUDIT_EVENTS_2019_02_05 WHERE $CONDITIONS;
+Importing navhdfs  ...
+Warning: /opt/cloudera/parcels/CDH-5.13.3-1.cdh5.13.3.p0.2/bin/../lib/sqoop/../accumulo does not exist! Accumulo imports will fail.
+Please set $ACCUMULO_HOME to the root of your Accumulo installation.
+19/02/05 10:04:22 INFO sqoop.Sqoop: Running Sqoop version: 1.4.6-cdh5.13.3
+19/02/05 10:04:22 WARN tool.BaseSqoopTool: Setting your password on the command-line is insecure. Consider using -P instead.
+19/02/05 10:04:22 INFO oracle.OraOopManagerFactory: Data Connector for Oracle and Hadoop is disabled.
+19/02/05 10:04:22 INFO manager.SqlManager: Using default fetchSize of 1000
+19/02/05 10:04:22 INFO tool.CodeGenTool: Beginning code generation
+19/02/05 10:04:23 INFO manager.OracleManager: Time zone has been set to GMT
+19/02/05 10:04:23 INFO manager.SqlManager: Executing SQL statement: SELECT IP_ADDR, USERNAME, 'hdfs', EVENT_TIME FROM nav.HDFS_AUDIT_EVENTS_2019_02_05 WHERE  (1 = 0) ;
+19/02/05 10:04:23 ERROR manager.SqlManager: Error executing statement: java.sql.SQLSyntaxErrorException: ORA-00933: SQL command not properly ended
+
+java.sql.SQLSyntaxErrorException: ORA-00933: SQL command not properly ended
+
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:447)
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:396)
+	at oracle.jdbc.driver.T4C8Oall.processError(T4C8Oall.java:951)
+	at oracle.jdbc.driver.T4CTTIfun.receive(T4CTTIfun.java:513)
+	at oracle.jdbc.driver.T4CTTIfun.doRPC(T4CTTIfun.java:227)
+	at oracle.jdbc.driver.T4C8Oall.doOALL(T4C8Oall.java:531)
+	at oracle.jdbc.driver.T4CPreparedStatement.doOall8(T4CPreparedStatement.java:208)
+	at oracle.jdbc.driver.T4CPreparedStatement.executeForDescribe(T4CPreparedStatement.java:886)
+	at oracle.jdbc.driver.OracleStatement.executeMaybeDescribe(OracleStatement.java:1175)
+	at oracle.jdbc.driver.OracleStatement.doExecuteWithTimeout(OracleStatement.java:1296)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeInternal(OraclePreparedStatement.java:3613)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeQuery(OraclePreparedStatement.java:3657)
+	at oracle.jdbc.driver.OraclePreparedStatementWrapper.executeQuery(OraclePreparedStatementWrapper.java:1495)
+	at org.apache.sqoop.manager.SqlManager.execute(SqlManager.java:777)
+	at org.apache.sqoop.manager.SqlManager.execute(SqlManager.java:786)
+	at org.apache.sqoop.manager.SqlManager.getColumnInfoForRawQuery(SqlManager.java:289)
+	at org.apache.sqoop.manager.SqlManager.getColumnTypesForRawQuery(SqlManager.java:260)
+	at org.apache.sqoop.manager.SqlManager.getColumnTypesForQuery(SqlManager.java:253)
+	at org.apache.sqoop.manager.ConnManager.getColumnTypes(ConnManager.java:336)
+	at org.apache.sqoop.orm.ClassWriter.getColumnTypes(ClassWriter.java:1858)
+	at org.apache.sqoop.orm.ClassWriter.generate(ClassWriter.java:1657)
+	at org.apache.sqoop.tool.CodeGenTool.generateORM(CodeGenTool.java:106)
+	at org.apache.sqoop.tool.ImportTool.importTable(ImportTool.java:494)
+	at org.apache.sqoop.tool.ImportTool.run(ImportTool.java:621)
+	at org.apache.sqoop.Sqoop.run(Sqoop.java:147)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:70)
+	at org.apache.sqoop.Sqoop.runSqoop(Sqoop.java:183)
+	at org.apache.sqoop.Sqoop.runTool(Sqoop.java:234)
+	at org.apache.sqoop.Sqoop.runTool(Sqoop.java:243)
+	at org.apache.sqoop.Sqoop.main(Sqoop.java:252)
+19/02/05 10:04:23 ERROR tool.ImportTool: Import failed: java.io.IOException: No columns to generate for ClassWriter
+	at org.apache.sqoop.orm.ClassWriter.generate(ClassWriter.java:1663)
+	at org.apache.sqoop.tool.CodeGenTool.generateORM(CodeGenTool.java:106)
+	at org.apache.sqoop.tool.ImportTool.importTable(ImportTool.java:494)
+	at org.apache.sqoop.tool.ImportTool.run(ImportTool.java:621)
+	at org.apache.sqoop.Sqoop.run(Sqoop.java:147)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:70)
+	at org.apache.sqoop.Sqoop.runSqoop(Sqoop.java:183)
+	at org.apache.sqoop.Sqoop.runTool(Sqoop.java:234)
+	at org.apache.sqoop.Sqoop.runTool(Sqoop.java:243)
+	at org.apache.sqoop.Sqoop.main(Sqoop.java:252)
+
+SELECT IP_ADDR, USERNAME, 'hive', EVENT_TIME FROM nav.HIVE_AUDIT_EVENTS_2019_02_05 WHERE $CONDITIONS;
+Importing navhive  ...
+Warning: /opt/cloudera/parcels/CDH-5.13.3-1.cdh5.13.3.p0.2/bin/../lib/sqoop/../accumulo does not exist! Accumulo imports will fail.
+Please set $ACCUMULO_HOME to the root of your Accumulo installation.
+19/02/05 10:04:24 INFO sqoop.Sqoop: Running Sqoop version: 1.4.6-cdh5.13.3
+19/02/05 10:04:24 WARN tool.BaseSqoopTool: Setting your password on the command-line is insecure. Consider using -P instead.
+19/02/05 10:04:24 INFO oracle.OraOopManagerFactory: Data Connector for Oracle and Hadoop is disabled.
+19/02/05 10:04:24 INFO manager.SqlManager: Using default fetchSize of 1000
+19/02/05 10:04:24 INFO tool.CodeGenTool: Beginning code generation
+19/02/05 10:04:24 INFO manager.OracleManager: Time zone has been set to GMT
+19/02/05 10:04:24 INFO manager.SqlManager: Executing SQL statement: SELECT IP_ADDR, USERNAME, 'hive', EVENT_TIME FROM nav.HIVE_AUDIT_EVENTS_2019_02_05 WHERE  (1 = 0) ;
+19/02/05 10:04:24 ERROR manager.SqlManager: Error executing statement: java.sql.SQLSyntaxErrorException: ORA-00933: SQL command not properly ended
+
+java.sql.SQLSyntaxErrorException: ORA-00933: SQL command not properly ended
+
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:447)
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:396)
+	at oracle.jdbc.driver.T4C8Oall.processError(T4C8Oall.java:951)
+	at oracle.jdbc.driver.T4CTTIfun.receive(T4CTTIfun.java:513)
+	at oracle.jdbc.driver.T4CTTIfun.doRPC(T4CTTIfun.java:227)
+	at oracle.jdbc.driver.T4C8Oall.doOALL(T4C8Oall.java:531)
+	at oracle.jdbc.driver.T4CPreparedStatement.doOall8(T4CPreparedStatement.java:208)
+	at oracle.jdbc.driver.T4CPreparedStatement.executeForDescribe(T4CPreparedStatement.java:886)
+	at oracle.jdbc.driver.OracleStatement.executeMaybeDescribe(OracleStatement.java:1175)
+	at oracle.jdbc.driver.OracleStatement.doExecuteWithTimeout(OracleStatement.java:1296)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeInternal(OraclePreparedStatement.java:3613)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeQuery(OraclePreparedStatement.java:3657)
+	at oracle.jdbc.driver.OraclePreparedStatementWrapper.executeQuery(OraclePreparedStatementWrapper.java:1495)
+	at org.apache.sqoop.manager.SqlManager.execute(SqlManager.java:777)
+	at org.apache.sqoop.manager.SqlManager.execute(SqlManager.java:786)
+	at org.apache.sqoop.manager.SqlManager.getColumnInfoForRawQuery(SqlManager.java:289)
+	at org.apache.sqoop.manager.SqlManager.getColumnTypesForRawQuery(SqlManager.java:260)
+	at org.apache.sqoop.manager.SqlManager.getColumnTypesForQuery(SqlManager.java:253)
+	at org.apache.sqoop.manager.ConnManager.getColumnTypes(ConnManager.java:336)
+	at org.apache.sqoop.orm.ClassWriter.getColumnTypes(ClassWriter.java:1858)
+	at org.apache.sqoop.orm.ClassWriter.generate(ClassWriter.java:1657)
+	at org.apache.sqoop.tool.CodeGenTool.generateORM(CodeGenTool.java:106)
+	at org.apache.sqoop.tool.ImportTool.importTable(ImportTool.java:494)
+	at org.apache.sqoop.tool.ImportTool.run(ImportTool.java:621)
+	at org.apache.sqoop.Sqoop.run(Sqoop.java:147)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:70)
+	at org.apache.sqoop.Sqoop.runSqoop(Sqoop.java:183)
+	at org.apache.sqoop.Sqoop.runTool(Sqoop.java:234)
+	at org.apache.sqoop.Sqoop.runTool(Sqoop.java:243)
+	at org.apache.sqoop.Sqoop.main(Sqoop.java:252)
+19/02/05 10:04:24 ERROR tool.ImportTool: Import failed: java.io.IOException: No columns to generate for ClassWriter
+	at org.apache.sqoop.orm.ClassWriter.generate(ClassWriter.java:1663)
+	at org.apache.sqoop.tool.CodeGenTool.generateORM(CodeGenTool.java:106)
+	at org.apache.sqoop.tool.ImportTool.importTable(ImportTool.java:494)
+	at org.apache.sqoop.tool.ImportTool.run(ImportTool.java:621)
+	at org.apache.sqoop.Sqoop.run(Sqoop.java:147)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:70)
+	at org.apache.sqoop.Sqoop.runSqoop(Sqoop.java:183)
+	at org.apache.sqoop.Sqoop.runTool(Sqoop.java:234)
+	at org.apache.sqoop.Sqoop.runTool(Sqoop.java:243)
+	at org.apache.sqoop.Sqoop.main(Sqoop.java:252)
+
+SELECT IP_ADDR, USERNAME, 'hue', EVENT_TIME FROM nav.HUE_AUDIT_EVENTS_2019_02_05 WHERE $CONDITIONS;
+Importing navhue  ...
+Warning: /opt/cloudera/parcels/CDH-5.13.3-1.cdh5.13.3.p0.2/bin/../lib/sqoop/../accumulo does not exist! Accumulo imports will fail.
+Please set $ACCUMULO_HOME to the root of your Accumulo installation.
+19/02/05 10:04:25 INFO sqoop.Sqoop: Running Sqoop version: 1.4.6-cdh5.13.3
+19/02/05 10:04:25 WARN tool.BaseSqoopTool: Setting your password on the command-line is insecure. Consider using -P instead.
+19/02/05 10:04:25 INFO oracle.OraOopManagerFactory: Data Connector for Oracle and Hadoop is disabled.
+19/02/05 10:04:25 INFO manager.SqlManager: Using default fetchSize of 1000
+19/02/05 10:04:25 INFO tool.CodeGenTool: Beginning code generation
+19/02/05 10:04:26 INFO manager.OracleManager: Time zone has been set to GMT
+19/02/05 10:04:26 INFO manager.SqlManager: Executing SQL statement: SELECT IP_ADDR, USERNAME, 'hue', EVENT_TIME FROM nav.HUE_AUDIT_EVENTS_2019_02_05 WHERE  (1 = 0) ;
+19/02/05 10:04:26 ERROR manager.SqlManager: Error executing statement: java.sql.SQLSyntaxErrorException: ORA-00933: SQL command not properly ended
+
+java.sql.SQLSyntaxErrorException: ORA-00933: SQL command not properly ended
+
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:447)
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:396)
+	at oracle.jdbc.driver.T4C8Oall.processError(T4C8Oall.java:951)
+	at oracle.jdbc.driver.T4CTTIfun.receive(T4CTTIfun.java:513)
+	at oracle.jdbc.driver.T4CTTIfun.doRPC(T4CTTIfun.java:227)
+	at oracle.jdbc.driver.T4C8Oall.doOALL(T4C8Oall.java:531)
+	at oracle.jdbc.driver.T4CPreparedStatement.doOall8(T4CPreparedStatement.java:208)
+	at oracle.jdbc.driver.T4CPreparedStatement.executeForDescribe(T4CPreparedStatement.java:886)
+	at oracle.jdbc.driver.OracleStatement.executeMaybeDescribe(OracleStatement.java:1175)
+	at oracle.jdbc.driver.OracleStatement.doExecuteWithTimeout(OracleStatement.java:1296)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeInternal(OraclePreparedStatement.java:3613)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeQuery(OraclePreparedStatement.java:3657)
+	at oracle.jdbc.driver.OraclePreparedStatementWrapper.executeQuery(OraclePreparedStatementWrapper.java:1495)
+	at org.apache.sqoop.manager.SqlManager.execute(SqlManager.java:777)
+	at org.apache.sqoop.manager.SqlManager.execute(SqlManager.java:786)
+	at org.apache.sqoop.manager.SqlManager.getColumnInfoForRawQuery(SqlManager.java:289)
+	at org.apache.sqoop.manager.SqlManager.getColumnTypesForRawQuery(SqlManager.java:260)
+	at org.apache.sqoop.manager.SqlManager.getColumnTypesForQuery(SqlManager.java:253)
+	at org.apache.sqoop.manager.ConnManager.getColumnTypes(ConnManager.java:336)
+	at org.apache.sqoop.orm.ClassWriter.getColumnTypes(ClassWriter.java:1858)
+	at org.apache.sqoop.orm.ClassWriter.generate(ClassWriter.java:1657)
+	at org.apache.sqoop.tool.CodeGenTool.generateORM(CodeGenTool.java:106)
+	at org.apache.sqoop.tool.ImportTool.importTable(ImportTool.java:494)
+	at org.apache.sqoop.tool.ImportTool.run(ImportTool.java:621)
+	at org.apache.sqoop.Sqoop.run(Sqoop.java:147)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:70)
+	at org.apache.sqoop.Sqoop.runSqoop(Sqoop.java:183)
+	at org.apache.sqoop.Sqoop.runTool(Sqoop.java:234)
+	at org.apache.sqoop.Sqoop.runTool(Sqoop.java:243)
+	at org.apache.sqoop.Sqoop.main(Sqoop.java:252)
+19/02/05 10:04:26 ERROR tool.ImportTool: Import failed: java.io.IOException: No columns to generate for ClassWriter
+	at org.apache.sqoop.orm.ClassWriter.generate(ClassWriter.java:1663)
+	at org.apache.sqoop.tool.CodeGenTool.generateORM(CodeGenTool.java:106)
+	at org.apache.sqoop.tool.ImportTool.importTable(ImportTool.java:494)
+	at org.apache.sqoop.tool.ImportTool.run(ImportTool.java:621)
+	at org.apache.sqoop.Sqoop.run(Sqoop.java:147)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:70)
+	at org.apache.sqoop.Sqoop.runSqoop(Sqoop.java:183)
+	at org.apache.sqoop.Sqoop.runTool(Sqoop.java:234)
+	at org.apache.sqoop.Sqoop.runTool(Sqoop.java:243)
+	at org.apache.sqoop.Sqoop.main(Sqoop.java:252)
+
+SELECT IP_ADDR, USERNAME, 'impala', EVENT_TIME FROM nav.IMPALA_AUDIT_EVENTS_2019_02_05 WHERE $CONDITIONS;
+Importing navimpala  ...
+Warning: /opt/cloudera/parcels/CDH-5.13.3-1.cdh5.13.3.p0.2/bin/../lib/sqoop/../accumulo does not exist! Accumulo imports will fail.
+Please set $ACCUMULO_HOME to the root of your Accumulo installation.
+19/02/05 10:04:26 INFO sqoop.Sqoop: Running Sqoop version: 1.4.6-cdh5.13.3
+19/02/05 10:04:26 WARN tool.BaseSqoopTool: Setting your password on the command-line is insecure. Consider using -P instead.
+19/02/05 10:04:27 INFO oracle.OraOopManagerFactory: Data Connector for Oracle and Hadoop is disabled.
+19/02/05 10:04:27 INFO manager.SqlManager: Using default fetchSize of 1000
+19/02/05 10:04:27 INFO tool.CodeGenTool: Beginning code generation
+19/02/05 10:04:27 INFO manager.OracleManager: Time zone has been set to GMT
+19/02/05 10:04:27 INFO manager.SqlManager: Executing SQL statement: SELECT IP_ADDR, USERNAME, 'impala', EVENT_TIME FROM nav.IMPALA_AUDIT_EVENTS_2019_02_05 WHERE  (1 = 0) ;
+19/02/05 10:04:27 ERROR manager.SqlManager: Error executing statement: java.sql.SQLSyntaxErrorException: ORA-00933: SQL command not properly ended
+
+java.sql.SQLSyntaxErrorException: ORA-00933: SQL command not properly ended
+
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:447)
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:396)
+	at oracle.jdbc.driver.T4C8Oall.processError(T4C8Oall.java:951)
+	at oracle.jdbc.driver.T4CTTIfun.receive(T4CTTIfun.java:513)
+	at oracle.jdbc.driver.T4CTTIfun.doRPC(T4CTTIfun.java:227)
+	at oracle.jdbc.driver.T4C8Oall.doOALL(T4C8Oall.java:531)
+	at oracle.jdbc.driver.T4CPreparedStatement.doOall8(T4CPreparedStatement.java:208)
+	at oracle.jdbc.driver.T4CPreparedStatement.executeForDescribe(T4CPreparedStatement.java:886)
+	at oracle.jdbc.driver.OracleStatement.executeMaybeDescribe(OracleStatement.java:1175)
+	at oracle.jdbc.driver.OracleStatement.doExecuteWithTimeout(OracleStatement.java:1296)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeInternal(OraclePreparedStatement.java:3613)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeQuery(OraclePreparedStatement.java:3657)
+	at oracle.jdbc.driver.OraclePreparedStatementWrapper.executeQuery(OraclePreparedStatementWrapper.java:1495)
+	at org.apache.sqoop.manager.SqlManager.execute(SqlManager.java:777)
+	at org.apache.sqoop.manager.SqlManager.execute(SqlManager.java:786)
+	at org.apache.sqoop.manager.SqlManager.getColumnInfoForRawQuery(SqlManager.java:289)
+	at org.apache.sqoop.manager.SqlManager.getColumnTypesForRawQuery(SqlManager.java:260)
+	at org.apache.sqoop.manager.SqlManager.getColumnTypesForQuery(SqlManager.java:253)
+	at org.apache.sqoop.manager.ConnManager.getColumnTypes(ConnManager.java:336)
+	at org.apache.sqoop.orm.ClassWriter.getColumnTypes(ClassWriter.java:1858)
+	at org.apache.sqoop.orm.ClassWriter.generate(ClassWriter.java:1657)
+	at org.apache.sqoop.tool.CodeGenTool.generateORM(CodeGenTool.java:106)
+	at org.apache.sqoop.tool.ImportTool.importTable(ImportTool.java:494)
+	at org.apache.sqoop.tool.ImportTool.run(ImportTool.java:621)
+	at org.apache.sqoop.Sqoop.run(Sqoop.java:147)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:70)
+	at org.apache.sqoop.Sqoop.runSqoop(Sqoop.java:183)
+	at org.apache.sqoop.Sqoop.runTool(Sqoop.java:234)
+	at org.apache.sqoop.Sqoop.runTool(Sqoop.java:243)
+	at org.apache.sqoop.Sqoop.main(Sqoop.java:252)
+19/02/05 10:04:27 ERROR tool.ImportTool: Import failed: java.io.IOException: No columns to generate for ClassWriter
+	at org.apache.sqoop.orm.ClassWriter.generate(ClassWriter.java:1663)
+	at org.apache.sqoop.tool.CodeGenTool.generateORM(CodeGenTool.java:106)
+	at org.apache.sqoop.tool.ImportTool.importTable(ImportTool.java:494)
+	at org.apache.sqoop.tool.ImportTool.run(ImportTool.java:621)
+	at org.apache.sqoop.Sqoop.run(Sqoop.java:147)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:70)
+	at org.apache.sqoop.Sqoop.runSqoop(Sqoop.java:183)
+	at org.apache.sqoop.Sqoop.runTool(Sqoop.java:234)
+	at org.apache.sqoop.Sqoop.runTool(Sqoop.java:243)
+	at org.apache.sqoop.Sqoop.main(Sqoop.java:252)
+
+SELECT IP_ADDR, USERNAME, 'navms', EVENT_TIME FROM nav.NAVMS_AUDIT_EVENTS_2019_02_05 WHERE $CONDITIONS;
+Importing navnavms  ...
+Warning: /opt/cloudera/parcels/CDH-5.13.3-1.cdh5.13.3.p0.2/bin/../lib/sqoop/../accumulo does not exist! Accumulo imports will fail.
+Please set $ACCUMULO_HOME to the root of your Accumulo installation.
+19/02/05 10:04:28 INFO sqoop.Sqoop: Running Sqoop version: 1.4.6-cdh5.13.3
+19/02/05 10:04:28 WARN tool.BaseSqoopTool: Setting your password on the command-line is insecure. Consider using -P instead.
+19/02/05 10:04:28 INFO oracle.OraOopManagerFactory: Data Connector for Oracle and Hadoop is disabled.
+19/02/05 10:04:28 INFO manager.SqlManager: Using default fetchSize of 1000
+19/02/05 10:04:28 INFO tool.CodeGenTool: Beginning code generation
+19/02/05 10:04:28 INFO manager.OracleManager: Time zone has been set to GMT
+19/02/05 10:04:28 INFO manager.SqlManager: Executing SQL statement: SELECT IP_ADDR, USERNAME, 'navms', EVENT_TIME FROM nav.NAVMS_AUDIT_EVENTS_2019_02_05 WHERE  (1 = 0) ;
+19/02/05 10:04:28 ERROR manager.SqlManager: Error executing statement: java.sql.SQLSyntaxErrorException: ORA-00933: SQL command not properly ended
+
+java.sql.SQLSyntaxErrorException: ORA-00933: SQL command not properly ended
+
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:447)
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:396)
+	at oracle.jdbc.driver.T4C8Oall.processError(T4C8Oall.java:951)
+	at oracle.jdbc.driver.T4CTTIfun.receive(T4CTTIfun.java:513)
+	at oracle.jdbc.driver.T4CTTIfun.doRPC(T4CTTIfun.java:227)
+	at oracle.jdbc.driver.T4C8Oall.doOALL(T4C8Oall.java:531)
+	at oracle.jdbc.driver.T4CPreparedStatement.doOall8(T4CPreparedStatement.java:208)
+	at oracle.jdbc.driver.T4CPreparedStatement.executeForDescribe(T4CPreparedStatement.java:886)
+	at oracle.jdbc.driver.OracleStatement.executeMaybeDescribe(OracleStatement.java:1175)
+	at oracle.jdbc.driver.OracleStatement.doExecuteWithTimeout(OracleStatement.java:1296)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeInternal(OraclePreparedStatement.java:3613)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeQuery(OraclePreparedStatement.java:3657)
+	at oracle.jdbc.driver.OraclePreparedStatementWrapper.executeQuery(OraclePreparedStatementWrapper.java:1495)
+	at org.apache.sqoop.manager.SqlManager.execute(SqlManager.java:777)
+	at org.apache.sqoop.manager.SqlManager.execute(SqlManager.java:786)
+	at org.apache.sqoop.manager.SqlManager.getColumnInfoForRawQuery(SqlManager.java:289)
+	at org.apache.sqoop.manager.SqlManager.getColumnTypesForRawQuery(SqlManager.java:260)
+	at org.apache.sqoop.manager.SqlManager.getColumnTypesForQuery(SqlManager.java:253)
+	at org.apache.sqoop.manager.ConnManager.getColumnTypes(ConnManager.java:336)
+	at org.apache.sqoop.orm.ClassWriter.getColumnTypes(ClassWriter.java:1858)
+	at org.apache.sqoop.orm.ClassWriter.generate(ClassWriter.java:1657)
+	at org.apache.sqoop.tool.CodeGenTool.generateORM(CodeGenTool.java:106)
+	at org.apache.sqoop.tool.ImportTool.importTable(ImportTool.java:494)
+	at org.apache.sqoop.tool.ImportTool.run(ImportTool.java:621)
+	at org.apache.sqoop.Sqoop.run(Sqoop.java:147)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:70)
+	at org.apache.sqoop.Sqoop.runSqoop(Sqoop.java:183)
+	at org.apache.sqoop.Sqoop.runTool(Sqoop.java:234)
+	at org.apache.sqoop.Sqoop.runTool(Sqoop.java:243)
+	at org.apache.sqoop.Sqoop.main(Sqoop.java:252)
+19/02/05 10:04:28 ERROR tool.ImportTool: Import failed: java.io.IOException: No columns to generate for ClassWriter
+	at org.apache.sqoop.orm.ClassWriter.generate(ClassWriter.java:1663)
+	at org.apache.sqoop.tool.CodeGenTool.generateORM(CodeGenTool.java:106)
+	at org.apache.sqoop.tool.ImportTool.importTable(ImportTool.java:494)
+	at org.apache.sqoop.tool.ImportTool.run(ImportTool.java:621)
+	at org.apache.sqoop.Sqoop.run(Sqoop.java:147)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:70)
+	at org.apache.sqoop.Sqoop.runSqoop(Sqoop.java:183)
+	at org.apache.sqoop.Sqoop.runTool(Sqoop.java:234)
+	at org.apache.sqoop.Sqoop.runTool(Sqoop.java:243)
+	at org.apache.sqoop.Sqoop.main(Sqoop.java:252)
+
+SELECT IP_ADDR, USERNAME, 'sentry', EVENT_TIME FROM nav.SENTRY_AUDIT_EVENTS_2019_02_05 WHERE $CONDITIONS;
+Importing navsentry  ...
+Warning: /opt/cloudera/parcels/CDH-5.13.3-1.cdh5.13.3.p0.2/bin/../lib/sqoop/../accumulo does not exist! Accumulo imports will fail.
+Please set $ACCUMULO_HOME to the root of your Accumulo installation.
+19/02/05 10:04:29 INFO sqoop.Sqoop: Running Sqoop version: 1.4.6-cdh5.13.3
+19/02/05 10:04:29 WARN tool.BaseSqoopTool: Setting your password on the command-line is insecure. Consider using -P instead.
+19/02/05 10:04:29 INFO oracle.OraOopManagerFactory: Data Connector for Oracle and Hadoop is disabled.
+19/02/05 10:04:29 INFO manager.SqlManager: Using default fetchSize of 1000
+19/02/05 10:04:29 INFO tool.CodeGenTool: Beginning code generation
+19/02/05 10:04:30 INFO manager.OracleManager: Time zone has been set to GMT
+19/02/05 10:04:30 INFO manager.SqlManager: Executing SQL statement: SELECT IP_ADDR, USERNAME, 'sentry', EVENT_TIME FROM nav.SENTRY_AUDIT_EVENTS_2019_02_05 WHERE  (1 = 0) ;
+19/02/05 10:04:30 ERROR manager.SqlManager: Error executing statement: java.sql.SQLSyntaxErrorException: ORA-00933: SQL command not properly ended
+
+java.sql.SQLSyntaxErrorException: ORA-00933: SQL command not properly ended
+
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:447)
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:396)
+	at oracle.jdbc.driver.T4C8Oall.processError(T4C8Oall.java:951)
+	at oracle.jdbc.driver.T4CTTIfun.receive(T4CTTIfun.java:513)
+	at oracle.jdbc.driver.T4CTTIfun.doRPC(T4CTTIfun.java:227)
+	at oracle.jdbc.driver.T4C8Oall.doOALL(T4C8Oall.java:531)
+	at oracle.jdbc.driver.T4CPreparedStatement.doOall8(T4CPreparedStatement.java:208)
+	at oracle.jdbc.driver.T4CPreparedStatement.executeForDescribe(T4CPreparedStatement.java:886)
+	at oracle.jdbc.driver.OracleStatement.executeMaybeDescribe(OracleStatement.java:1175)
+	at oracle.jdbc.driver.OracleStatement.doExecuteWithTimeout(OracleStatement.java:1296)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeInternal(OraclePreparedStatement.java:3613)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeQuery(OraclePreparedStatement.java:3657)
+	at oracle.jdbc.driver.OraclePreparedStatementWrapper.executeQuery(OraclePreparedStatementWrapper.java:1495)
+	at org.apache.sqoop.manager.SqlManager.execute(SqlManager.java:777)
+	at org.apache.sqoop.manager.SqlManager.execute(SqlManager.java:786)
+	at org.apache.sqoop.manager.SqlManager.getColumnInfoForRawQuery(SqlManager.java:289)
+	at org.apache.sqoop.manager.SqlManager.getColumnTypesForRawQuery(SqlManager.java:260)
+	at org.apache.sqoop.manager.SqlManager.getColumnTypesForQuery(SqlManager.java:253)
+	at org.apache.sqoop.manager.ConnManager.getColumnTypes(ConnManager.java:336)
+	at org.apache.sqoop.orm.ClassWriter.getColumnTypes(ClassWriter.java:1858)
+	at org.apache.sqoop.orm.ClassWriter.generate(ClassWriter.java:1657)
+	at org.apache.sqoop.tool.CodeGenTool.generateORM(CodeGenTool.java:106)
+	at org.apache.sqoop.tool.ImportTool.importTable(ImportTool.java:494)
+	at org.apache.sqoop.tool.ImportTool.run(ImportTool.java:621)
+	at org.apache.sqoop.Sqoop.run(Sqoop.java:147)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:70)
+	at org.apache.sqoop.Sqoop.runSqoop(Sqoop.java:183)
+	at org.apache.sqoop.Sqoop.runTool(Sqoop.java:234)
+	at org.apache.sqoop.Sqoop.runTool(Sqoop.java:243)
+	at org.apache.sqoop.Sqoop.main(Sqoop.java:252)
+19/02/05 10:04:30 ERROR tool.ImportTool: Import failed: java.io.IOException: No columns to generate for ClassWriter
+	at org.apache.sqoop.orm.ClassWriter.generate(ClassWriter.java:1663)
+	at org.apache.sqoop.tool.CodeGenTool.generateORM(CodeGenTool.java:106)
+	at org.apache.sqoop.tool.ImportTool.importTable(ImportTool.java:494)
+	at org.apache.sqoop.tool.ImportTool.run(ImportTool.java:621)
+	at org.apache.sqoop.Sqoop.run(Sqoop.java:147)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:70)
+	at org.apache.sqoop.Sqoop.runSqoop(Sqoop.java:183)
+	at org.apache.sqoop.Sqoop.runTool(Sqoop.java:234)
+	at org.apache.sqoop.Sqoop.runTool(Sqoop.java:243)
+	at org.apache.sqoop.Sqoop.main(Sqoop.java:252)
+
+SELECT IP_ADDR, USERNAME, 'solr', EVENT_TIME FROM nav.SOLR_AUDIT_EVENTS_2019_02_05 WHERE $CONDITIONS;
+Importing navsolr  ...
+Warning: /opt/cloudera/parcels/CDH-5.13.3-1.cdh5.13.3.p0.2/bin/../lib/sqoop/../accumulo does not exist! Accumulo imports will fail.
+Please set $ACCUMULO_HOME to the root of your Accumulo installation.
+19/02/05 10:04:31 INFO sqoop.Sqoop: Running Sqoop version: 1.4.6-cdh5.13.3
+19/02/05 10:04:31 WARN tool.BaseSqoopTool: Setting your password on the command-line is insecure. Consider using -P instead.
+19/02/05 10:04:31 INFO oracle.OraOopManagerFactory: Data Connector for Oracle and Hadoop is disabled.
+19/02/05 10:04:31 INFO manager.SqlManager: Using default fetchSize of 1000
+19/02/05 10:04:31 INFO tool.CodeGenTool: Beginning code generation
+19/02/05 10:04:31 INFO manager.OracleManager: Time zone has been set to GMT
+19/02/05 10:04:31 INFO manager.SqlManager: Executing SQL statement: SELECT IP_ADDR, USERNAME, 'solr', EVENT_TIME FROM nav.SOLR_AUDIT_EVENTS_2019_02_05 WHERE  (1 = 0) ;
+19/02/05 10:04:31 ERROR manager.SqlManager: Error executing statement: java.sql.SQLSyntaxErrorException: ORA-00933: SQL command not properly ended
+
+java.sql.SQLSyntaxErrorException: ORA-00933: SQL command not properly ended
+
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:447)
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:396)
+	at oracle.jdbc.driver.T4C8Oall.processError(T4C8Oall.java:951)
+	at oracle.jdbc.driver.T4CTTIfun.receive(T4CTTIfun.java:513)
+	at oracle.jdbc.driver.T4CTTIfun.doRPC(T4CTTIfun.java:227)
+	at oracle.jdbc.driver.T4C8Oall.doOALL(T4C8Oall.java:531)
+	at oracle.jdbc.driver.T4CPreparedStatement.doOall8(T4CPreparedStatement.java:208)
+	at oracle.jdbc.driver.T4CPreparedStatement.executeForDescribe(T4CPreparedStatement.java:886)
+	at oracle.jdbc.driver.OracleStatement.executeMaybeDescribe(OracleStatement.java:1175)
+	at oracle.jdbc.driver.OracleStatement.doExecuteWithTimeout(OracleStatement.java:1296)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeInternal(OraclePreparedStatement.java:3613)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeQuery(OraclePreparedStatement.java:3657)
+	at oracle.jdbc.driver.OraclePreparedStatementWrapper.executeQuery(OraclePreparedStatementWrapper.java:1495)
+	at org.apache.sqoop.manager.SqlManager.execute(SqlManager.java:777)
+	at org.apache.sqoop.manager.SqlManager.execute(SqlManager.java:786)
+	at org.apache.sqoop.manager.SqlManager.getColumnInfoForRawQuery(SqlManager.java:289)
+	at org.apache.sqoop.manager.SqlManager.getColumnTypesForRawQuery(SqlManager.java:260)
+	at org.apache.sqoop.manager.SqlManager.getColumnTypesForQuery(SqlManager.java:253)
+	at org.apache.sqoop.manager.ConnManager.getColumnTypes(ConnManager.java:336)
+	at org.apache.sqoop.orm.ClassWriter.getColumnTypes(ClassWriter.java:1858)
+	at org.apache.sqoop.orm.ClassWriter.generate(ClassWriter.java:1657)
+	at org.apache.sqoop.tool.CodeGenTool.generateORM(CodeGenTool.java:106)
+	at org.apache.sqoop.tool.ImportTool.importTable(ImportTool.java:494)
+	at org.apache.sqoop.tool.ImportTool.run(ImportTool.java:621)
+	at org.apache.sqoop.Sqoop.run(Sqoop.java:147)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:70)
+	at org.apache.sqoop.Sqoop.runSqoop(Sqoop.java:183)
+	at org.apache.sqoop.Sqoop.runTool(Sqoop.java:234)
+	at org.apache.sqoop.Sqoop.runTool(Sqoop.java:243)
+	at org.apache.sqoop.Sqoop.main(Sqoop.java:252)
+19/02/05 10:04:31 ERROR tool.ImportTool: Import failed: java.io.IOException: No columns to generate for ClassWriter
+	at org.apache.sqoop.orm.ClassWriter.generate(ClassWriter.java:1663)
+	at org.apache.sqoop.tool.CodeGenTool.generateORM(CodeGenTool.java:106)
+	at org.apache.sqoop.tool.ImportTool.importTable(ImportTool.java:494)
+	at org.apache.sqoop.tool.ImportTool.run(ImportTool.java:621)
+	at org.apache.sqoop.Sqoop.run(Sqoop.java:147)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:70)
+	at org.apache.sqoop.Sqoop.runSqoop(Sqoop.java:183)
+	at org.apache.sqoop.Sqoop.runTool(Sqoop.java:234)
+	at org.apache.sqoop.Sqoop.runTool(Sqoop.java:243)
+	at org.apache.sqoop.Sqoop.main(Sqoop.java:252)
+

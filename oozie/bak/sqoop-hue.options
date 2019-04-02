@@ -1,0 +1,17 @@
+--connect
+jdbc:oracle:thin:@//ahloratxpla301.evv1.ah-isd.net:1530/INFADB
+--username
+cloudera_rpt
+--password-alias
+oracle.password
+--query
+"SELECT '0.0.0.0', a.username, 'hue', (a.last_login) from hue.auth_user a, hue.auth_user_groups b, hue.auth_group c WHERE a.id = b.user_id and b.group_id = c.id AND $CONDITIONS order by a.id"
+--hive-table
+ops_team_audit.hue
+--hive-overwrite
+--hive-import
+--delete-target-dir
+--fields-terminated-by
+'|'
+-m
+1

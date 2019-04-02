@@ -1,0 +1,15 @@
+--connect
+jdbc:oracle:thin:@//ahloratxpla301.evv1.ah-isd.net:1530/INFADB
+--username
+cloudera_rpt
+--password-alias
+oracle.password
+--hive-table
+ops_team_audit.navhdfs
+--hive-overwrite
+--hive-import
+--delete-target-dir
+--fields-terminated-by
+'|'
+-m
+1

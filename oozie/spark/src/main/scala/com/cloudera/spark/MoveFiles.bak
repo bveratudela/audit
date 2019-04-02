@@ -1,0 +1,68 @@
+package com.cloudera.spark;
+
+import java.util.Date
+import java.text.SimpleDateFormat
+
+import org.apache.spark.rdd.RDD
+import org.apache.spark.SparkContext._
+import org.apache.spark.{SparkConf, SparkContext}
+
+import org.apache.hadoop.conf.Configuration
+import org.apache.hadoop.fs.{FileSystem, Path}
+import org.apache.hadoop.fs.{FileAlreadyExistsException, FileSystem, FileUtil, Path}
+
+def listFiles(hdfs: FileSystem, path: String) : List[String] = {
+    if (hdfs.exists(srcPath)) {
+}
+
+object MoveFiles {
+    def main(args: Array[String]) {
+        if (args.length < 1) {
+            System.err.println("Usage: MoveFiles <src path> <dst path>")
+            System.exit(1)
+        }
+
+        val conf = new SparkConf()
+        val sc = new SparkContext(conf)
+
+        conf.setAppName("Audit Move Files")
+        conf.set("spark.cleaner.ttl", "120000")
+
+        val hadoopConf = new Configuration()
+        val hdfs = FileSystem.get(hadoopConf)
+
+        val dstPath = new Path(args(1))
+
+        if (!hdfs.exists(dstPath)) {
+            hdfs.mkdirs(dstPath)
+        }
+
+        val srcPath = new Path(args(0))
+
+        if (hdfs.exists(srcPath)) {
+            val fmt = new SimpleDateFormat("yyyyMMddHHmmss")
+            val date = fmt.format(new Date())
+            val dirs = srcPath.getFileSystem(hadoopConf).listStatus(srcPath)
+
+            // Hadoop Paths are not serializable so get their names before parallelize
+            val dirsRDD = sc.parallelize(dirs.map(dir => dir.getPath.toString).toList, 8)
+
+            dirsRDD.map(dir => {
+                val dirPath = new Path(dir)
+                val files = dirPath.getFileSystem(hadoopConf).listStatus(dirPath)
+
+                files.foreach(file => {
+                    if (!file.isDirectory && !file.getPath().getName().endsWith("_SUCCESS")) {
+                        val parentDir = file.getPath().getParent()
+                        val parent = parentDir.getName()
+                        val source = parent.substring(parent.lastIndexOf("/") + 1)
+                        //hdfs.rename(file.getPath(), new Path(dstPath + "/" + date + "." + source))
+                        System.out.println(file.getPath() + " => " + new Path(dstPath + "/" + date + "." + source))
+                    }
+                })
+            })
+        }
+
+        sc.stop()
+    }
+}

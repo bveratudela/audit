@@ -1,0 +1,91 @@
+package com.cloudera.spark;
+
+import java.text.SimpleDateFormat
+import java.util.Date
+
+import scala.collection.mutable.ListBuffer
+
+import org.apache.spark.rdd.RDD
+import org.apache.spark.SparkContext._
+import org.apache.spark.{SparkConf, SparkContext}
+
+import org.apache.hadoop.conf.Configuration
+import org.apache.hadoop.fs.{FileSystem, Path}
+import org.apache.hadoop.fs.{FileAlreadyExistsException, FileSystem, FileUtil, Path}
+
+object MoveFiles extends java.io.Serializable {
+    val fmt = new SimpleDateFormat("yyyyMMddHHmmss")
+    val date = fmt.format(new Date())
+    val renamedFiles = ListBuffer[(String, String)]()
+
+    def listRenamedFiles(hdfs: FileSystem, src: String, dst: String) : List[(String, String)] = {
+        val status = hdfs.listStatus(new Path(src))
+        status.foreach(entry => {
+            if (entry.isDirectory) {
+                listRenamedFiles(hdfs, entry.getPath().toString, dst)
+            } else if (!entry.getPath().getName().endsWith("_SUCCESS")) {
+                val parentDir = entry.getPath().getParent()
+                val parent = parentDir.getName()
+                val source = parent.substring(parent.lastIndexOf("/") + 1)
+                val srcFile = entry.getPath().toString
+                val dstFile = dst + "/" + date + "." + source
+                renamedFiles += ((srcFile, dstFile))
+            }
+        })
+        renamedFiles.toList
+    }
+
+    def main(args: Array[String]) {
+        if (args.length < 1) {
+            System.err.println("Usage: MoveFiles <src path> <dst path>")
+            System.exit(1)
+        }
+
+        val conf = new SparkConf()
+        val sc = new SparkContext(conf)
+
+        conf.setAppName("Audit Move Files")
+        conf.set("spark.cleaner.ttl", "120000")
+
+//      conf.set("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
+//      conf.set("spark.kryo.classesToRegister", "org.apache.hadoop.hdfs.DistributedFileSystem")
+
+        val hdfs = FileSystem.get(new Configuration())
+
+        val srcPath = new Path(args(0))
+        val dstPath = new Path(args(1))
+
+        if (!hdfs.exists(dstPath)) {
+            hdfs.mkdirs(dstPath)
+        }
+
+//      val files = listRenamedFiles(hdfs, args(0), args(1))
+        val files = hdfs.listFiles(srcPath, true)
+
+        val fileList = ListBuffer[(String, String)]()
+
+        while (files.hasNext()) {
+            val thisFile = files.next()
+            if (thisFile.isFile() && !thisFile.getPath().getName().endsWith("_SUCCESS")) {
+                val parent = thisFile.getPath().getParent().getName()
+                val source = parent.substring(parent.lastIndexOf("/") + 1)
+                val srcFile = parent + "/" + thisFile.getPath().getName().toString
+                val dstFile = args(1) + "/" + date + "." + source
+                fileList += ((srcFile, dstFile))
+                println(fileList)
+            }
+        }
+
+        // obtain the list of files ingested and then distribute the work to
+        // rename these among 8 mappers. Hadoop paths are not serializable!!
+        val filesRDD = sc.parallelize(fileList, 8)
+
+        filesRDD.collect().foreach(println)
+/*
+        filesRDD.map(x => {
+            hdfs.rename(new Path(x._1), new Path(x._2))
+        })
+*/
+        sc.stop()
+    }
+}

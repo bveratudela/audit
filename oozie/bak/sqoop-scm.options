@@ -1,0 +1,21 @@
+--driver
+com.mysql.jdbc.Driver
+--connect
+jdbc:mysql://vbox.kriqt.com:3306/scm
+--username
+reader
+--password
+passw0rd
+--query
+"SELECT '0.0.0.0', USERS.USER_NAME, 'scm', CAST(REVISIONS.TIMESTAMP/1000 AS INTEGER) FROM CONFIGS_AUD INNER JOIN REVISIONS INNER JOIN USERS WHERE $CONDITIONS AND CONFIGS_AUD.REV=REVISIONS.REVISION_ID AND USERS.USER_ID=REVISIONS.USER_ID"
+--delete-target-dir
+--hive-table
+scm
+--hive-import
+--create-hive-table
+--hive-overwrite
+--fields-terminated-by
+'|'
+--direct
+-m
+1

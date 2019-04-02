@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.cloudera.flume</groupId>
+  <artifactId>flume-interceptor</artifactId>
+  <packaging>jar</packaging>
+
+  <version>1.0</version>
+
+  <name>Flume Interceptor</name>
+
+  <repositories>
+    <repository>
+      <id>cloudera</id>
+      <url>https://repository.cloudera.com/artifactory/cloudera-repos/</url>
+    </repository>
+  </repositories>
+
+  <properties>
+    <flume.version>1.6.0</flume.version>
+    <!-- Maven -->
+    <plugin.surefire.version>2.19.1</plugin.surefire.version>
+    <plugin.compiler.version>3.1</plugin.compiler.version>
+    <plugin.compiler.source.version>1.8</plugin.compiler.source.version>
+    <plugin.compiler.target.version>1.8</plugin.compiler.target.version>
+    <plugin.assembly.version>3.1.0</plugin.assembly.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.flume</groupId>
+      <artifactId>flume-ng-core</artifactId>
+      <version>${flume.version}</version>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${plugin.surefire.version}</version>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${plugin.compiler.version}</version>
+        <configuration>
+          <source>${plugin.compiler.source.version}</source>
+          <target>${plugin.compiler.target.version}</target>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>${plugin.assembly.version}</version>
+        <configuration>
+          <descriptors>
+            <descriptor>assembly/project.xml</descriptor>
+          </descriptors>
+        </configuration>
+        <executions>
+          <execution>
+            <id>make-assembly</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+    </plugins>
+  </build>
+
+</project>

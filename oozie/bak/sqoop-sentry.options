@@ -1,0 +1,21 @@
+--driver
+com.mysql.jdbc.Driver
+--connect
+jdbc:mysql://vbox.kriqt.com:3306/sentry
+--username
+reader
+--password
+passw0rd
+--query
+"SELECT r.ROLE_NAME, g.GROUP_NAME from SENTRY_GROUP g join SENTRY_ROLE_GROUP_MAP rg on rg.GROUP_ID = g.GROUP_ID   join SENTRY_ROLE r on r.ROLE_ID = rg.ROLE_ID   join SENTRY_ROLE_DB_PRIVILEGE_MAP rp on rp.ROLE_ID = r.ROLE_ID join SENTRY_DB_PRIVILEGE p on p.DB_PRIVILEGE_ID = rp.DB_PRIVILEGE_ID WHERE $CONDITIONS order by r.ROLE_NAME, g.GROUP_NAME"
+--delete-target-dir
+--hive-table
+sentry
+--hive-import
+--create-hive-table
+--hive-overwrite
+--fields-terminated-by
+'|'
+--direct
+-m
+1
